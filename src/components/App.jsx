@@ -12,26 +12,9 @@ export class App extends Component {
   };
 
   handleBtnClick = value => {
-    switch (value) {
-      case 'good':
-        this.setState(prev => {
-          return { good: prev.good + 1 };
-        });
-        break;
-      case 'neutral':
-        this.setState(prev => {
-          return { neutral: prev.neutral + 1 };
-        });
-        break;
-      case 'bad':
-        this.setState(prev => {
-          return { bad: prev.bad + 1 };
-        });
-        break;
-
-      default:
-        break;
-    }
+    this.setState(prev => {
+      return { [value]: prev[value] + 1 };
+    });
   };
 
   countTotalFeedback() {
@@ -39,17 +22,24 @@ export class App extends Component {
   }
 
   countPositiveFeedbackPercentage(total) {
-    return Math.round((this.state.good / total) * 100);
+    return Math.round(
+      (this.state.good /
+        (this.state.good + this.state.neutral + this.state.bad)) *
+        100
+    );
   }
 
   render() {
     const { good, neutral, bad } = this.state;
     const totalCount = this.countTotalFeedback();
-    const percentage = this.countPositiveFeedbackPercentage(totalCount);
+    const percentage = this.countPositiveFeedbackPercentage();
     return (
       <div className="container">
         <Section title={'Please laeve feedback'}>
-          <FeedbackOptions handleBtnClick={this.handleBtnClick} />
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            handleBtnClick={this.handleBtnClick}
+          />
         </Section>
         <Section title={'Statistics'}>
           {totalCount ? (

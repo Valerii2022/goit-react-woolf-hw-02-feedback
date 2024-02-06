@@ -6,9 +6,25 @@
 }
 
 .btn {
+  cursor: pointer;
   padding: 8px 16px;
   border-radius: 4px;
   font-size: 18px;
   font-weight: 700;
   border: none;
+}
+
+.good {
+  color: #024602;
+  background-color: #99ee99;
+}
+
+.neutral {
+  color: #926003;
+  background-color: #f3d69f;
+}
+
+.bad {
+  color: '#5e0303';
+  background-color: #f39e9e;
 }
