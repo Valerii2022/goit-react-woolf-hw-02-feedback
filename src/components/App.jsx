@@ -1,73 +1,69 @@
 import { Component } from 'react';
+import { Statistics } from './Statistics/Statistics';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
+import { Section } from './Section/Section';
+import { Notification } from './Notification/Notification';
 
 export class App extends Component {
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
-    total: 0,
-    percentage: 0,
   };
 
   handleBtnClick = value => {
-    if (value === 'good') {
-      this.setState(prev => {
-        return { good: prev.good + 1 };
-      });
+    switch (value) {
+      case 'good':
+        this.setState(prev => {
+          return { good: prev.good + 1 };
+        });
+        break;
+      case 'neutral':
+        this.setState(prev => {
+          return { neutral: prev.neutral + 1 };
+        });
+        break;
+      case 'bad':
+        this.setState(prev => {
+          return { bad: prev.bad + 1 };
+        });
+        break;
+
+      default:
+        break;
     }
-    if (value === 'neutral') {
-      this.setState(prev => {
-        return { neutral: prev.neutral + 1 };
-      });
-    }
-    if (value === 'bad') {
-      this.setState(prev => {
-        return { bad: prev.bad + 1 };
-      });
-    }
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
   };
 
   countTotalFeedback() {
-    this.setState(prev => {
-      return { total: prev.total + 1 };
-    });
+    return this.state.good + this.state.neutral + this.state.bad;
   }
 
-  countPositiveFeedbackPercentage() {
-    this.setState(() => {
-      return {
-        percentage: Math.round((this.state.good / this.state.total) * 100),
-      };
-    });
+  countPositiveFeedbackPercentage(total) {
+    return Math.round((this.state.good / total) * 100);
   }
 
   render() {
+    const { good, neutral, bad } = this.state;
+    const totalCount = this.countTotalFeedback();
+    const percentage = this.countPositiveFeedbackPercentage(totalCount);
     return (
-      <div>
-        <h2>Please laeve feedback</h2>
-        <ul>
-          <li>
-            <button onClick={() => this.handleBtnClick('good')}>Good</button>
-          </li>
-          <li>
-            <button onClick={() => this.handleBtnClick('neutral')}>
-              Neutral
-            </button>
-          </li>
-          <li>
-            <button onClick={() => this.handleBtnClick('bad')}>Bad</button>
-          </li>
-        </ul>
-        <h2>Statistics</h2>
-        <ul>
-          <li>Good: {this.state.good}</li>
-          <li>Neutral: {this.state.neutral}</li>
-          <li>Bad: {this.state.bad}</li>
-          <li>Total:{this.state.total}</li>
-          <li>Percentage:{this.state.percentage}%</li>
-        </ul>
+      <div className="container">
+        <Section title={'Please laeve feedback'}>
+          <FeedbackOptions handleBtnClick={this.handleBtnClick} />
+        </Section>
+        <Section title={'Statistics'}>
+          {totalCount ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={totalCount}
+              positivePercentage={percentage}
+            />
+          ) : (
+            <Notification message="There is no feedback"></Notification>
+          )}
+        </Section>
       </div>
     );
   }

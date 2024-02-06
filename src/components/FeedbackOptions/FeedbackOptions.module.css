@@ -1,0 +1,14 @@
+.list {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+}
