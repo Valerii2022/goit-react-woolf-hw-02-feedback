@@ -3,7 +3,7 @@ import style from './FeedbackOptions.module.css';
 
 export class FeedbackOptions extends Component {
   render() {
-    const { options, handleBtnClick } = this.props;
+    const { options, onLeaveFeedback } = this.props;
     return (
       <ul className={style.list}>
         {options &&
@@ -12,7 +12,7 @@ export class FeedbackOptions extends Component {
               <li key={el}>
                 <button
                   className={`${style.btn} ${style[el]}`}
-                  onClick={() => handleBtnClick(el)}
+                  onClick={() => onLeaveFeedback(el)}
                 >
                   {el}
                 </button>

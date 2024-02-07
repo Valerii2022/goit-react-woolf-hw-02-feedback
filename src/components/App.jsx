@@ -38,7 +38,7 @@ export class App extends Component {
         <Section title={'Please laeve feedback'}>
           <FeedbackOptions
             options={Object.keys(this.state)}
-            handleBtnClick={this.handleBtnClick}
+            onLeaveFeedback={this.handleBtnClick}
           />
         </Section>
         <Section title={'Statistics'}>
