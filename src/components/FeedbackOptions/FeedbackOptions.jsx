@@ -4,14 +4,14 @@ export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <ul className={style.list}>
       {options &&
-        options.map(el => {
+        options.map(option => {
           return (
-            <li key={el}>
+            <li key={option}>
               <button
-                className={`${style.btn} ${style[el]}`}
-                onClick={() => onLeaveFeedback(el)}
+                className={`${style.btn} ${style[option]}`}
+                onClick={() => onLeaveFeedback(option)}
               >
-                {el}
+                {option}
               </button>
             </li>
           );
